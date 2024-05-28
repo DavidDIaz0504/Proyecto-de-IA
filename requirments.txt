@@ -1,0 +1,4 @@
+TensorFlow 2.16.1
+Streamlit 1.33.0
+OpenCV 4.9.0
+Pillow 10.3.0
