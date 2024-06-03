@@ -41,4 +41,3 @@ if st.button('Capture'):
 # Liberar la cámara
 camera.release()
 cv2.destroyAllWindows()
-
