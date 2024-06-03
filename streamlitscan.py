@@ -21,10 +21,7 @@ st.title('Product Scanner')
 # Inicializar la cámara
 camera = cv2.VideoCapture(0)
 
-# Crear una variable para almacenar la última imagen capturada
-last_frame = None
-
-while True:
+if st.button('Capture'):
     # Capturar un fotograma de la cámara
     _, frame = camera.read()
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -32,22 +29,16 @@ while True:
     # Mostrar el fotograma en la interfaz de Streamlit
     st.image(frame, channels="RGB", use_column_width=True)
     
-    # Guardar el fotograma actual
-    last_frame = frame
+    # Convertir la imagen capturada en un objeto de imagen de PIL
+    captured_image = Image.fromarray(frame)
     
-    # Si se presiona el botón de captura, detener el bucle
-    if st.button('Capture'):
-        break
-
-# Convertir la última imagen capturada en un objeto de imagen de PIL
-captured_image = Image.fromarray(last_frame)
-
-# Predecir la clase de la imagen capturada
-class_idx, confidence = predict(captured_image)
-
-# Mostrar la clasificación y la confianza
-st.write(f'Class: {class_idx}, Confidence: {confidence:.2f}')
+    # Predecir la clase de la imagen capturada
+    class_idx, confidence = predict(captured_image)
+    
+    # Mostrar la clasificación y la confianza
+    st.write(f'Class: {class_idx}, Confidence: {confidence:.2f}')
 
 # Liberar la cámara
 camera.release()
 cv2.destroyAllWindows()
+
